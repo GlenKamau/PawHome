@@ -1,5 +1,3 @@
-import SpeciesCards from "../components/home/SpeciesCards";
-import FeaturedPets from "../components/home/FeaturedPets";
 import HowItWorks from "../components/home/HowItWorks";
 import CallToAction from "../components/home/CallToAction";
 
@@ -7,8 +5,6 @@ import CallToAction from "../components/home/CallToAction";
 export default function HomePage() {
   return (
     <>
-      <SpeciesCards />
-      <FeaturedPets />
       <HowItWorks />
       <CallToAction />
     </>
