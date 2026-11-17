@@ -5,6 +5,8 @@ import { Menu, PawPrint, X } from "lucide-react";
 const links = [
   { to: "/", label: "Home" },
   { to: "/pets", label: "Find a pet" },
+  // TEMPORARY: lets Emmanuel open the details page before the pet list exists. Remove when Tevin's cards link to /pets/:id
+  { to: "/pets/1", label: "Pet details" },
   { to: "/adopt", label: "Adopt" },
   { to: "/pets/new", label: "List a pet", cta: true },
 ];
