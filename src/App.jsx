@@ -7,7 +7,6 @@ import PetDetailPage from "./pages/PetDetailPage";
 import PetEditPage from "./pages/PetEditPage";
 import AdoptionPage from "./pages/AdoptionPage";
 
-
 export default function App() {
   return (
     <Routes>
