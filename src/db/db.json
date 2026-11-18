@@ -31,6 +31,12 @@
       "description": "Rocky is loyal, highly intelligent, and protective. He knows basic obedience commands and would thrive with an active owner."
     },
     {
+      "id": "4",
+      "name": "Bosco",
+      "image": "https://images.unsplash.com/photo-1552053831-71594a27632d?w=600",
+      "description": "Friendly and playful."
+    },
+    {
       "id": "5",
       "name": "Max",
       "image": "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=600",
@@ -65,6 +71,17 @@
       "name": "Buddy",
       "image": "https://images.unsplash.com/photo-1555169062-013468b47731?w=600",
       "description": "Sociable and fun-loving."
+    },
+    {
+      "id": "1794996440956",
+      "name": "Caicedo",
+      "breed": "German",
+      "age": "3 Years",
+      "gender": "Male",
+      "adoptionFee": 200,
+      "image": "https://images.unsplash.com/photo-1555169062-013468b47731?w=600",
+      "description": "wefhbhfewbiwef",
+      "status": "available"
     }
   ],
   "applications": [
@@ -82,52 +99,6 @@
       "applicationDate": "2026-11-18T09:58:26.221Z",
       "status": "pending",
       "id": 1
-    },
-    {
-<<<<<<< HEAD
-      "fullName": "test",
-      "email": "test@com",
-      "phone": "0733345436",
-      "address": "Nairobi",
-      "homeType": "House",
-      "household": "2 adult ",
-      "experience": "Currently have pets",
-      "reason": "a very stable home",
-      "petId": "5",
-      "petName": "Max",
-      "applicationDate": "2026-11-18T10:17:26.264Z",
-      "status": "pending",
-      "id": 2
-    },
-    {
-      "fullName": "test",
-      "email": "test@gmail.com",
-      "phone": "0733345436",
-      "address": "Nairobi",
-      "homeType": "House",
-      "household": "2 adult ",
-      "experience": "Yes",
-      "reason": "sgrfytrhreyjtyjtyjtyjyt",
-      "petId": "5",
-      "petName": "Max",
-      "applicationDate": "2026-11-18T10:19:13.403Z",
-      "status": "pending",
-      "id": 3
-=======
-      "fullName": "adrian kamau",
-      "email": "adriankamau@gmail.com",
-      "phone": "0789237418",
-      "address": "Nairobi",
-      "homeType": "House",
-      "household": "3 adults",
-      "experience": "Yes",
-      "reason": "i want it",
-      "petId": "2",
-      "petName": "Luna",
-      "applicationDate": "2026-11-18T11:15:01.483Z",
-      "status": "pending",
-      "id": 2
->>>>>>> production
     }
   ]
 }
