@@ -303,4 +303,5 @@ export default function AddForm({ onPetAdded }) {
             </form>
         </section>
     );
+    
 }
