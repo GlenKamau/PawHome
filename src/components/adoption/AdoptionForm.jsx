@@ -319,4 +319,23 @@ const handleSubmit = async (event) => {
               {success}
             </p>
           )}
+
+           {/* Submit button */}
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="mt-8 w-full rounded-lg bg-[#FF6347] px-6 py-4 font-bold text-white transition hover:bg-[#e95339] disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {isSubmitting ? "Submitting..." : "Submit Adoption Application"}
+          </button>
+
+          <p className="mt-4 text-center text-sm text-gray-500">
+            Our team will review your application and contact you.
+          </p>
+
+        </form>
+      </div>
+    </div>
+  );
 }
+export default AdoptionForm;
