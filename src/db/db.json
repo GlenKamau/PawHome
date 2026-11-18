@@ -84,6 +84,7 @@
       "id": 1
     },
     {
+<<<<<<< HEAD
       "fullName": "test",
       "email": "test@com",
       "phone": "0733345436",
@@ -112,6 +113,21 @@
       "applicationDate": "2026-11-18T10:19:13.403Z",
       "status": "pending",
       "id": 3
+=======
+      "fullName": "adrian kamau",
+      "email": "adriankamau@gmail.com",
+      "phone": "0789237418",
+      "address": "Nairobi",
+      "homeType": "House",
+      "household": "3 adults",
+      "experience": "Yes",
+      "reason": "i want it",
+      "petId": "2",
+      "petName": "Luna",
+      "applicationDate": "2026-11-18T11:15:01.483Z",
+      "status": "pending",
+      "id": 2
+>>>>>>> production
     }
   ]
 }
