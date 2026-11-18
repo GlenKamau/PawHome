@@ -113,7 +113,6 @@ export default function PetDetails({ favoriteIds, onFavoriteIdsChange }) {
 
           <div className="mt-8 flex flex-wrap gap-3">
             {isAvailable && <Link to={`/pets/${pet.id}/adopt`} className="inline-flex min-h-11 items-center rounded-lg bg-coral px-5 py-3 font-semibold text-ink hover:bg-coral-dark">Adopt</Link>}
-            <Link to={`/pets/${pet.id}/edit`} className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-teal-deep px-5 py-3 font-semibold text-ivory hover:bg-teal-dark"><Pencil size={17} aria-hidden="true" /> Edit</Link>
             <button type="button" onClick={handleDelete} className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-red-200 bg-card px-5 py-3 font-semibold text-red-700 hover:bg-red-50"><Trash2 size={17} aria-hidden="true" /> Delete</button>
           </div>
         </div>
