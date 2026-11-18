@@ -227,4 +227,62 @@ const handleSubmit = async (event) => {
 
           </div>
 
+ {/* Home details */}
+          <h3 className="mb-5 mt-10 border-b border-gray-200 pb-3 text-lg font-semibold text-[#176965]">
+            About Your Home
+          </h3>
+
+          <div className="grid gap-5 md:grid-cols-2">
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Type of Home *
+              </label>
+              <select
+                name="homeType"
+                value={formData.homeType}
+                onChange={handleChange}
+                className={inputStyle}
+                required
+              >
+                <option value="">Select your home type</option>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House</option>
+                <option value="Farm">Farm</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Household Members
+              </label>
+              <input
+                type="text"
+                name="household"
+                value={formData.household}
+                onChange={handleChange}
+                placeholder="e.g. 2 adults and 1 child"
+                className={inputStyle}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="mb-2 block font-medium">
+                Have you cared for a pet before?
+              </label>
+              <select
+                name="experience"
+                value={formData.experience}
+                onChange={handleChange}
+                className={inputStyle}
+              >
+                <option value="">Select an answer</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Currently have pets">I currently have pets</option>
+              </select>
+            </div>
+
+          </div>
 }
