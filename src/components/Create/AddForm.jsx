@@ -1,8 +1,12 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function AddForm({ onPetAdded }) {
-    // Store the form input values
+
+    const navigate = useNavigate();
+
+    // Store form input values
     const [formData, setFormData] = useState({
         name: "",
         breed: "",
@@ -13,28 +17,30 @@ export default function AddForm({ onPetAdded }) {
         description: "",
     });
 
-    // Store error and success messages
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
     const [loading, setLoading] = useState(false);
 
-    // Updfate form values whenever the user types
+    // Update form values
     function handleChange(event) {
         const { name, value } = event.target;
 
-        setFormData({
-            ...formData, [name]: value,
-        });
+        setFormData((previousData) => ({
+            ...previousData,
+            [name]: value,
+        }));
     }
 
-    // Submit the new pet
+    // Submit new pet
     async function handleSubmit(event) {
         event.preventDefault();
-        
+
+        if (loading) return;
+
         setError("");
         setSuccess("");
 
-        // Basic validation 
+        // Basic validation
         if (
             !formData.name.trim() ||
             !formData.breed.trim() ||
@@ -48,12 +54,15 @@ export default function AddForm({ onPetAdded }) {
             return;
         }
 
-        if (Number(formData.adoptionFee) < 0) {
-            setError("Adoption fee cannot be negative.");
+        if (
+            !Number.isFinite(Number(formData.adoptionFee)) ||
+            Number(formData.adoptionFee) < 0
+        ) {
+            setError("Please enter a valid adoption fee.");
             return;
         }
 
-        // Prepare pet data using db.json
+        // Prepare pet data
         const newPet = {
             id: Date.now().toString(),
             name: formData.name.trim(),
@@ -63,18 +72,23 @@ export default function AddForm({ onPetAdded }) {
             adoptionFee: Number(formData.adoptionFee),
             image: formData.image.trim(),
             description: formData.description.trim(),
+            status: "available",
         };
 
         try {
             setLoading(true);
 
-            const response = await fetch("http://localhost:3001/pets", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(newPet),
-            });
+            // Save pet to JSON Server
+            const response = await fetch(
+                "http://localhost:3000/pets",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(newPet),
+                }
+            );
 
             if (!response.ok) {
                 throw new Error("Failed to add pet. Please try again.");
@@ -82,12 +96,14 @@ export default function AddForm({ onPetAdded }) {
 
             const savedPet = await response.json();
 
-            // Notify the parent page that a pet was added
+            // Notify parent component
             if (onPetAdded) {
                 onPetAdded(savedPet);
             }
 
-            // CLear the form after successful submission 
+            setSuccess("Pet added successfully!");
+
+            // Clear form
             setFormData({
                 name: "",
                 breed: "",
@@ -98,40 +114,43 @@ export default function AddForm({ onPetAdded }) {
                 description: "",
             });
 
-            setSuccess("Pet added successfully!");
+            // Redirect after successful saving
+            navigate("/pets");
 
         } catch (err) {
-            setError(err.message || "Something went wrong.");
+            setError(
+                err.message || "Something went wrong. Please try again."
+            );
         } finally {
-            setLoading(false); 
-        } 
-
+            setLoading(false);
+        }
     }
+
+    const inputStyle =
+        "w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-2 focus:ring-teal-tint";
 
     return (
         <section className="mx-auto max-w-3xl rounded-xl bg-card p-6 shadow-md sm:p-8">
 
             <div className="mb-8">
                 <h2 className="font-heading text-3xl font-bold text-teal-deep">
-                      List a Pet
+                    List a Pet
                 </h2>
 
                 <p className="mt-2 text-ink-soft">
-                    Share a pet looking for a loving home.   
+                    Share a pet looking for a loving home.
                 </p>
-
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5"> 
+            <form onSubmit={handleSubmit} className="space-y-5">
 
                 {/* Pet Name */}
                 <div>
                     <label htmlFor="name" className="mb-2 block font-semibold text-ink">
                         Pet Name
-
                     </label>
 
-                    <input 
+                    <input
                         type="text"
                         id="name"
                         name="name"
@@ -139,14 +158,14 @@ export default function AddForm({ onPetAdded }) {
                         onChange={handleChange}
                         placeholder="Enter pet name"
                         required
-                        className="w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-2 focus:ring-teal-tint"
+                        className={inputStyle}
                     />
                 </div>
-               
-                 {/* Breed  */}
-                 <div>
+
+                {/* Breed */}
+                <div>
                     <label htmlFor="breed" className="mb-2 block font-semibold text-ink">
-                         Breed
+                        Breed
                     </label>
 
                     <input
@@ -157,28 +176,27 @@ export default function AddForm({ onPetAdded }) {
                         onChange={handleChange}
                         placeholder="Enter pet breed"
                         required
-                        className="w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-2 focus:ring-teal-lint"
+                        className={inputStyle}
                     />
-                    
-                 </div>
-                 
-                 {/* Age and Gender */}
-                 <div className="grid gap-5 sm:grid-cols-2">
+                </div>
+
+                {/* Age and Gender */}
+                <div className="grid gap-5 sm:grid-cols-2">
 
                     <div>
-                        <label htmlFor="age" className="mb-2 block font-semibold text">
-                              Age
+                        <label htmlFor="age" className="mb-2 block font-semibold text-ink">
+                            Age
                         </label>
-                         
-                        <input 
-                             type="text"
-                             id="age"
-                             name="age"
-                             value={formData.age}
-                             onChange={handleChange}
-                             placeholder="e.g. 2 years"
-                             required  
-                             className="w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-2 focus:ring-teal-tint"                      
+
+                        <input
+                            type="text"
+                            id="age"
+                            name="age"
+                            value={formData.age}
+                            onChange={handleChange}
+                            placeholder="e.g. 2 years"
+                            required
+                            className={inputStyle}
                         />
                     </div>
 
@@ -193,110 +211,96 @@ export default function AddForm({ onPetAdded }) {
                             value={formData.gender}
                             onChange={handleChange}
                             required
-                            className="w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:ring-teal-tint"
+                            className={inputStyle}
                         >
-
-                          <option value="">Select gender</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
+                            <option value="">Select gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
                         </select>
                     </div>
 
-                 </div>
+                </div>
 
-                   {/* Adoption Fee */}
-                   <div>
-                      <label
-                           htmlFor="adoptionFee"
-                           className="mb-2 block font-semibold text-ink"
-                      >
-                         Adoption Fee
-                      </label>
+                {/* Adoption Fee */}
+                <div>
+                    <label htmlFor="adoptionFee" className="mb-2 block font-semibold text-ink">
+                        Adoption Fee
+                    </label>
 
-                      <input 
-                          type="number"
-                          id="adoptionFee"
-                          name="adoptionFee"
-                          value={formData.adoptionFee}
-                          onChange={handleChange}
-                          placeholder="Enter adoption fee"
-                          min="0"
-                          step="1"
-                          required
-                          className="w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-2 focus:ring-teal-tint"
-                      />
+                    <input
+                        type="number"
+                        id="adoptionFee"
+                        name="adoptionFee"
+                        value={formData.adoptionFee}
+                        onChange={handleChange}
+                        placeholder="Enter adoption fee"
+                        min="0"
+                        step="1"
+                        required
+                        className={inputStyle}
+                    />
+                </div>
 
-                   </div>
+                {/* Image URL */}
+                <div>
+                    <label htmlFor="image" className="mb-2 block font-semibold text-ink">
+                        Pet Image URL
+                    </label>
 
-                   {/* Image URL */}
-                   <div>
-                      <label htmlFor="image" className="mb-2 block font-semibold text-ink">
-                            Pet Image URL
-                      </label>
-                      
-                      <input 
-                          type="url"
-                          id="image"
-                          name="image"
-                          value={formData.image}
-                          onChange={handleChange}
-                          placeholder="https://example.com/pet-image.jpg"
-                          required
-                          className="w-full rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-teal-tint"
-                      />
-                   </div>
+                    <input
+                        type="url"
+                        id="image"
+                        name="image"
+                        value={formData.image}
+                        onChange={handleChange}
+                        placeholder="https://example.com/pet-image.jpg"
+                        required
+                        className={inputStyle}
+                    />
+                </div>
 
-                   {/* Description */}
-                    <div>
-                        <label
-                            htmlFor="description"
-                            className="mb-2 block font-semibold text-ink"                                                   
-                        >
-                            Description
-                        </label>
+                {/* Description */}
+                <div>
+                    <label htmlFor="description" className="mb-2 block font-semibold text-ink">
+                        Description
+                    </label>
 
-                        <textarea
-                              id="description"
-                              name="description"
-                              value={formData.description}
-                              onChange={handleChange}
-                              placeholder="Tell us about this pet..."
-                              rows="5"
-                              required
-                              className="w-full resize-y rounded-lg border border-ivory-deep bg-ivory px-4 py-3 text-ink outline-none focus:border-teal-deep focus:ring-2 focus:ring-teal-tint"
-                        />
-                    </div>
+                    <textarea
+                        id="description"
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Tell us about this pet..."
+                        rows="5"
+                        required
+                        className={inputStyle}
+                    />
+                </div>
 
-                    {/* Error Message */}
-                     
-                    {error && (
-                        <p role="alert" className="rounded-lg bg-red-100 p-3 text-red-700">
-                            {error}
-                        </p>
-                    )} 
+                {/* Error Message */}
+                {error && (
+                    <p role="alert" className="rounded-lg bg-red-100 p-3 text-red-700">
+                        {error}
+                    </p>
+                )}
 
-                    {/* Success Message */}
+                {/* Success Message */}
+                {success && (
+                    <p role="status" className="rounded-lg bg-teal-tint p-3 text-teal-deep">
+                        {success}
+                    </p>
+                )}
 
-                    {success && (
-                        <p role="status" className="rounded-lg bg-teal-tint p-3 text-teal-deep">
-                            {success}
-                        </p>
-                    )}
-
-                    {/* Submit Button */}
-
-                    <button 
-                        type="submit"
-                        disabled={loading}
-                        className="w-full rounded-lg bg-coral px-6 py-3 font-bold text-ink transition-colors hover:bg-coral-dark disabled:cursor-not-allowed disabled:opacity-60"
-                    > 
-                       {loading ? "Adding Pet..." : "Add Pet" }                        
-                        
-                    </button>
+                {/* Submit Button */}
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full rounded-lg bg-coral px-6 py-3 font-bold text-ink transition-colors hover:bg-coral-dark disabled:cursor-not-allowed disabled:opacity-60"
+                >
+                    {loading ? "Adding Pet..." : "Add Pet"}
+                </button>
 
             </form>
-
         </section>
     );
-
 }

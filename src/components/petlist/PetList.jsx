@@ -1,42 +1,118 @@
 
-
+import { useEffect, useState } from "react";
 import PetCard from "./PetCard";
 
-function PetList() {
+export default function PetList() {
 
-  const pets = [
-    ["Bosco", "Friendly and playful.", "https://images.unsplash.com/photo-1552053831-71594a27632d?w=600"],
-    ["Max", "Energetic and intelligent.", "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=600"],
-    ["Bella", "Gentle and affectionate.", "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600"],
-    ["Charlie", "Cheerful and loving.", "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600"],
-    ["Lucy", "Sweet and playful.", "https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600"],
-    ["Rocky", "Adventurous and loyal.", "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?w=600"],
-    ["Daisy", "Playful and gentle.", "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=600"],
-    ["Buddy", "Sociable and fun-loving.", "https://images.unsplash.com/photo-1555169062-013468b47731?w=600"],
-    ["Milo", "Loving and curious.", "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=600"]
-  ];
+  const [pets, setPets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  async function fetchPets() {
+    try {
+      setError("");
+
+      const response = await fetch("http://localhost:3000/pets");
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch pets.");
+      }
+
+      const data = await response.json();
+
+      setPets(data);
+
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+
+    fetchPets();
+
+    // Refresh pets when the page becomes visible
+    function handleVisibilityChange() {
+      if (document.visibilityState === "visible") {
+        fetchPets();
+      }
+    }
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange
+    );
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange
+      );
+    };
+
+  }, []);
+
+  if (loading) {
+    return (
+      <p className="p-8 text-center text-ink-soft">
+        Loading pets...
+      </p>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-8 text-center">
+        <p className="text-red-600">{error}</p>
+
+        <button
+          onClick={fetchPets}
+          className="mt-4 rounded-lg bg-teal-deep px-5 py-2 text-white"
+        >
+          Try Again
+        </button>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <main className="min-h-screen bg-gray-100 px-4 py-10">
 
-      <h1 className="text-3xl font-bold text-center mb-8">
+      <h1 className="mb-8 text-center text-3xl font-bold text-ink">
         Pets Available for Adoption
       </h1>
 
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {pets.length === 0 ? (
 
-        {pets.map((pet, index) => (
-          <PetCard
-            key={index}
-            name={pet[0]}
-            description={pet[1]}
-            image={pet[2]}
-          />
-        ))}
+        <p className="text-center text-ink-soft">
+          No pets available at the moment.
+        </p>
 
-      </div>
-    </div>
+      ) : (
+
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+          {pets.map((pet) => (
+
+            <PetCard
+              key={pet.id}
+              id={pet.id}
+              name={pet.name}
+              description={pet.description}
+              image={pet.image}
+              breed={pet.breed}
+              age={pet.age}
+              status={pet.status || "available"}
+            />
+
+          ))}
+
+        </div>
+
+      )}
+
+    </main>
   );
 }
-
-export default PetList;
