@@ -285,4 +285,38 @@ const handleSubmit = async (event) => {
             </div>
 
           </div>
+
+           {/* Adoption reason */}
+          <h3 className="mb-5 mt-10 border-b border-gray-200 pb-3 text-lg font-semibold text-[#176965]">
+            Why Do You Want to Adopt?
+          </h3>
+
+          <div>
+            <label className="mb-2 block font-medium">
+              Tell us why you would like to adopt this pet *
+            </label>
+
+            <textarea
+              name="reason"
+              value={formData.reason}
+              onChange={handleChange}
+              rows="5"
+              placeholder="Tell us about the home you can provide..."
+              className={inputStyle}
+              required
+            />
+          </div>
+
+          {/* Feedback */}
+          {error && (
+            <p className="mt-5 rounded-lg bg-red-50 p-3 text-red-700">
+              {error}
+            </p>
+          )}
+
+          {success && (
+            <p className="mt-5 rounded-lg bg-green-50 p-3 text-green-700">
+              {success}
+            </p>
+          )}
 }
