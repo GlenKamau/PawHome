@@ -33,7 +33,7 @@ export default function PetList() {
 
     fetchPets();
 
-    // Refresh pets when the page becomes visible
+  
     function handleVisibilityChange() {
       if (document.visibilityState === "visible") {
         fetchPets();

@@ -221,7 +221,7 @@ export default function AddForm({ onPetAdded }) {
 
                 </div>
 
-                {/* Adoption Fee */}
+                
                 <div>
                     <label htmlFor="adoptionFee" className="mb-2 block font-semibold text-ink">
                         Adoption Fee
@@ -241,7 +241,7 @@ export default function AddForm({ onPetAdded }) {
                     />
                 </div>
 
-                {/* Image URL */}
+               
                 <div>
                     <label htmlFor="image" className="mb-2 block font-semibold text-ink">
                         Pet Image URL
@@ -259,7 +259,7 @@ export default function AddForm({ onPetAdded }) {
                     />
                 </div>
 
-                {/* Description */}
+                
                 <div>
                     <label htmlFor="description" className="mb-2 block font-semibold text-ink">
                         Description
@@ -277,21 +277,21 @@ export default function AddForm({ onPetAdded }) {
                     />
                 </div>
 
-                {/* Error Message */}
+                
                 {error && (
                     <p role="alert" className="rounded-lg bg-red-100 p-3 text-red-700">
                         {error}
                     </p>
                 )}
 
-                {/* Success Message */}
+                
                 {success && (
                     <p role="status" className="rounded-lg bg-teal-tint p-3 text-teal-deep">
                         {success}
                     </p>
                 )}
 
-                {/* Submit Button */}
+                
                 <button
                     type="submit"
                     disabled={loading}

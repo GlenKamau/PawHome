@@ -15,7 +15,7 @@ function PetCard({
   return (
     <article className="flex h-full w-full flex-col overflow-hidden rounded-2xl border border-ivory-deep bg-card shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg">
 
-      {/* Pet image */}
+    
       <Link to={`/pets/${id}`} className="block overflow-hidden">
         {image ? (
           <img
@@ -30,7 +30,7 @@ function PetCard({
         )}
       </Link>
 
-      {/* Pet information */}
+      
       <div className="flex flex-1 flex-col p-5">
 
         <h2 className="text-xl font-bold text-ink">
@@ -63,10 +63,10 @@ function PetCard({
             : "Currently unavailable"}
         </p>
 
-        {/* Buttons */}
+        
         <div className="mt-auto grid gap-3 pt-5 sm:grid-cols-2">
 
-          {/* More Details */}
+          
           <Link
             to={`/pets/${id}`}
             className="inline-flex min-h-11 items-center justify-center rounded-lg border border-teal-deep px-4 py-3 text-center font-semibold text-teal-deep transition hover:bg-teal-tint"
@@ -74,7 +74,7 @@ function PetCard({
             More Details
           </Link>
 
-          {/* Adopt */}
+    
           {isAvailable ? (
             <Link
               to={`/pets/${id}/adopt`}

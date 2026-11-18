@@ -9,10 +9,9 @@ const links = [
 ];
 
 export default function Header() {
-  // Local state: is the phone menu open?
+
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Close the phone menu whenever the page changes
   const { pathname } = useLocation();
   useEffect(() => {
     setMenuOpen(false);
@@ -47,12 +46,11 @@ export default function Header() {
           PawHome
         </Link>
 
-        {/* Computer menu */}
+      
         <nav aria-label="Main" className="hidden items-center gap-1 md:flex">
           {renderLinks()}
         </nav>
 
-        {/* Phone menu button */}
         <button
           type="button"
           onClick={() => setMenuOpen((open) => !open)}
@@ -69,7 +67,7 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Phone menu */}
+      
       {menuOpen && (
         <nav
           id="mobile-menu"
