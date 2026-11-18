@@ -29,7 +29,76 @@
       "adoptionFee": 200,
       "image": "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?auto=format&fit=crop&w=600&q=80",
       "description": "Rocky is loyal, highly intelligent, and protective. He knows basic obedience commands and would thrive with an active owner."
+    },
+    {
+      "id": "4",
+      "name": "Bosco",
+      "image": "https://images.unsplash.com/photo-1552053831-71594a27632d?w=600",
+      "description": "Friendly and playful."
+    },
+    {
+      "id": "5",
+      "name": "Max",
+      "image": "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=600",
+      "description": "Energetic and intelligent."
+    },
+    {
+      "id": "6",
+      "name": "Bella",
+      "image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600",
+      "description": "Gentle and affectionate."
+    },
+    {
+      "id": "7",
+      "name": "Charlie",
+      "image": "https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=600",
+      "description": "Cheerful and loving."
+    },
+    {
+      "id": "8",
+      "name": "Lucy",
+      "image": "https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=600",
+      "description": "Sweet and playful."
+    },
+    {
+      "id": "9",
+      "name": "Daisy",
+      "image": "https://images.unsplash.com/photo-1552728089-57bdde30beb3?w=600",
+      "description": "Playful and gentle."
+    },
+    {
+      "id": "10",
+      "name": "Buddy",
+      "image": "https://images.unsplash.com/photo-1555169062-013468b47731?w=600",
+      "description": "Sociable and fun-loving."
+    },
+    {
+      "id": "1794996440956",
+      "name": "Caicedo",
+      "breed": "German",
+      "age": "3 Years",
+      "gender": "Male",
+      "adoptionFee": 200,
+      "image": "https://images.unsplash.com/photo-1555169062-013468b47731?w=600",
+      "description": "wefhbhfewbiwef",
+      "status": "available"
     }
   ],
-  "applications": []
+  "applications": [
+    {
+      "fullName": "John Doe",
+      "email": "john.doe@gmail.com",
+      "phone": "0712345678",
+      "address": "Nairobi",
+      "homeType": "Apartment",
+      "household": "2 adults",
+      "experience": "Yes",
+      "reason": "I want it",
+      "petId": "3",
+      "petName": "Rocky",
+      "applicationDate": "2026-11-18T09:58:26.221Z",
+      "status": "pending",
+      "id": 1
+    }
+  ]
 }
