@@ -16,6 +16,8 @@ function PetImage({ pet }) {
     );
   }
 
+  
+
   return (
     <img
       src={image}
