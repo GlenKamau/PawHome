@@ -144,4 +144,87 @@ const handleSubmit = async (event) => {
           </div>
         </div>
 
+{/* Adoption form */}
+        <form
+          onSubmit={handleSubmit}
+          className="rounded-2xl bg-white p-6 shadow-lg md:p-10"
+        >
+          <h2 className="mb-2 text-2xl font-bold">
+            Your Information
+          </h2>
+
+          <p className="mb-8 text-sm text-gray-500">
+            Please provide accurate information so the shelter can
+            contact you.
+          </p>
+
+          {/* Personal details */}
+          <h3 className="mb-5 border-b border-gray-200 pb-3 text-lg font-semibold text-[#176965]">
+            Personal Details
+          </h3>
+
+          <div className="grid gap-5 md:grid-cols-2">
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Full Name *
+              </label>
+              <input
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={handleChange}
+                placeholder="Enter your full name"
+                className={inputStyle}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="example@email.com"
+                className={inputStyle}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Phone Number *
+              </label>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                placeholder="Enter your phone number"
+                className={inputStyle}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block font-medium">
+                Home Address *
+              </label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                placeholder="Enter your location"
+                className={inputStyle}
+                required
+              />
+            </div>
+
+          </div>
+
 }
