@@ -1,0 +1,16 @@
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
+
+// Wraps every page: header on top, the page in the middle, footer at the bottom
+export default function Layout() {
+  return (
+    <div className="flex min-h-screen flex-col bg-ivory text-ink">
+      <Header />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+}

@@ -1,16 +1,13 @@
-# React + Vite
+Project Overview
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The PawHome Adoption Form is a React component developed as part of the PawHome pet adoption platform. It allows people interested in adopting a pet to submit an adoption application by providing their personal information, details about their home, and reasons for wanting to adopt.
 
-Currently, two official plugins are available:
+The form also displays information about the selected pet, helping ensure that the application is connected to the correct animal.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The project uses React and Tailwind CSS to provide a responsive, user-friendly interface that matches PawHome's design.
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Testing
+Run:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+npm test

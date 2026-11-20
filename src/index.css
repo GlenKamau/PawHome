@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+/* PawHome theme. Every page uses these names, so the whole site stays consistent. */
+@theme {
+  /* 60% main: Warm Ivory (page backgrounds, cards) */
+  --color-ivory: #f3eee8;
+  --color-ivory-deep: #e6ddd2; /* borders and alternate sections */
+  --color-card: #fbf9f6; /* cards sitting on ivory */
+
+  /* 30% second: Deep Teal (header, footer, banners, links, headings accents) */
+  --color-teal-deep: #17645f;
+  --color-teal-dark: #0f4743; /* hover state */
+  --color-teal-tint: #dbe9e7; /* soft badges and icon blocks */
+
+  /* 10% accent: Coral Orange (main action buttons and highlights only) */
+  --color-coral: #ff6845;
+  --color-coral-dark: #f04e2a; /* hover state */
+
+  /* Text */
+  --color-ink: #1c2a29;
+  --color-ink-soft: #4a5957;
+
+  /* Fonts */
+  --font-heading: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Open Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html,
+  body {
+    background-color: var(--color-ivory);
+  }
+  body {
+    font-family: var(--font-body);
+    color: var(--color-ink);
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-heading);
+  }
+}
