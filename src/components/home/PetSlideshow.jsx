@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useFetch } from "../../hooks/useFetch";
 
 const API_URL = "http://localhost:3000/pets";
-
 const SECONDS_PER_PET = 6;
 
 const css = `
@@ -15,25 +15,7 @@ const css = `
 `;
 
 export default function PetSlideshow() {
-  const [pets, setPets] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  // Load the pets from json-server once, when the section appears
-  useEffect(() => {
-    let cancelled = false;
-    fetch(API_URL)
-      .then((res) => {
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-        return res.json();
-      })
-      .then((data) => !cancelled && setPets(data))
-      .catch((e) => !cancelled && setError(e.message))
-      .finally(() => !cancelled && setLoading(false));
-    return () => {
-      cancelled = true;
-    };
-  }, []);
+  const { data: pets, loading, error } = useFetch(API_URL, []);
 
   const slides = useMemo(() => {
     const seen = new Set();
@@ -101,7 +83,7 @@ export default function PetSlideshow() {
           className="mx-auto mt-8 max-w-6xl px-4 text-sm text-ink-soft"
         >
           We could not load the pets right now. Check that the database is
-          running.
+          running. ({error})
         </p>
       )}
 

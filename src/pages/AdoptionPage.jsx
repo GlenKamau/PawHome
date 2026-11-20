@@ -1,51 +1,27 @@
-
-import { useEffect, useState } from "react";
 import { useParams, Navigate } from "react-router-dom";
 import AdoptionForm from "../components/adoption/AdoptionForm";
+import { useFetch } from "../hooks/useFetch";
+
+const API_BASE_URL = "http://localhost:3000";
 
 export default function AdoptionPage() {
-
   const { id } = useParams();
 
-  const [pet, setPet] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-
-    if (!id) {
-      setLoading(false);
-      return;
-    }
-
-    fetch(`http://localhost:3000/pets/${id}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Pet not found.");
-        }
-
-        return response.json();
-      })
-      .then((data) => {
-        setPet(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-
-  }, [id]);
+  const {
+    data: pet,
+    loading,
+    error,
+  } = useFetch(id ? `${API_BASE_URL}/pets/${id}` : null, null);
 
   async function handleSubmit(formData) {
-
-    const response = await fetch("http://localhost:3000/applications", {
+    const response = await fetch(`${API_BASE_URL}/applications`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         ...formData,
+        petId: pet?.id,
         applicationDate: new Date().toISOString(),
         status: "pending",
       }),
