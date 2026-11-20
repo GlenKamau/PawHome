@@ -21,28 +21,6 @@
       "description": "Luna is a calm and affectionate cat who loves sunny windowsills and quiet cuddles. She is spayed and microchipped."
     },
     {
-      "id": "3",
-      "name": "Rocky",
-      "breed": "German Shepherd",
-      "age": "3 years",
-      "gender": "Male",
-      "adoptionFee": 200,
-      "image": "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?auto=format&fit=crop&w=600&q=80",
-      "description": "Rocky is loyal, highly intelligent, and protective. He knows basic obedience commands and would thrive with an active owner."
-    },
-    {
-      "id": "4",
-      "name": "Bosco",
-      "image": "https://images.unsplash.com/photo-1552053831-71594a27632d?w=600",
-      "description": "Friendly and playful."
-    },
-    {
-      "id": "5",
-      "name": "Max",
-      "image": "https://images.unsplash.com/photo-1551717743-49959800b1f6?w=600",
-      "description": "Energetic and intelligent."
-    },
-    {
       "id": "6",
       "name": "Bella",
       "image": "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=600",
@@ -86,21 +64,6 @@
   ],
   "applications": [
     {
-      "fullName": "John Doe",
-      "email": "john.doe@gmail.com",
-      "phone": "0712345678",
-      "address": "Nairobi",
-      "homeType": "Apartment",
-      "household": "2 adults",
-      "experience": "Yes",
-      "reason": "I want it",
-      "petId": "3",
-      "petName": "Rocky",
-      "applicationDate": "2026-11-18T09:58:26.221Z",
-      "status": "pending",
-      "id": 1
-    },
-    {
       "fullName": "adrian kamau",
       "email": "adriankamau@gmail.com",
       "phone": "0789237418",
@@ -114,21 +77,6 @@
       "applicationDate": "2026-11-18T11:15:01.483Z",
       "status": "pending",
       "id": 2
-    },
-    {
-      "fullName": "John Doe",
-      "email": "john.doe@gmail.com",
-      "phone": "0712345678",
-      "address": "Nairobi",
-      "homeType": "Apartment",
-      "household": "2 Adults",
-      "experience": "Yes",
-      "reason": "Gift",
-      "petId": "3",
-      "petName": "Rocky",
-      "applicationDate": "2026-11-20T06:45:12.203Z",
-      "status": "pending",
-      "id": 3
     }
   ]
 }
