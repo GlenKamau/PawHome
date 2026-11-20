@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import { useForm } from "../../hooks/useForm";
 
-function AdoptionForm({ pet, onSubmit }) {
-    const [formData, setFormData] = useState({
+const INITIAL_VALUES = {
   fullName: "",
   email: "",
   phone: "",
@@ -12,61 +12,71 @@ function AdoptionForm({ pet, onSubmit }) {
   household: "",
   experience: "",
   reason: "",
-});
-
-const [isSubmitting, setIsSubmitting] = useState(false);
-
-const [error, setError] = useState("");
-
-const [success, setSuccess] = useState("");
-
-const handleChange = (event) => {
-  const { name, value } = event.target;
-
-  setFormData((previousData) => ({
-    ...previousData,
-    [name]: value,
-  }));
 };
 
-const handleSubmit = async (event) => {
-    event.preventDefault();
+function validateAdoption(values) {
+  const errors = {};
+
+  if (
+    !values.fullName.trim() ||
+    !values.email.trim() ||
+    !values.phone.trim() ||
+    !values.address.trim() ||
+    !values.homeType ||
+    !values.reason.trim()
+  ) {
+    errors.form = "Please fill in all required fields.";
+    return errors;
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
+    errors.email = "Please enter a valid email address.";
+  }
+
+  return errors;
+}
+
+function AdoptionForm({ pet, onSubmit }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const {
+    values: formData,
+    errors,
+    handleChange,
+    resetForm,
+    handleSubmit,
+  } = useForm(INITIAL_VALUES, validateAdoption);
+
+  const handleFormSubmit = async (submittedValues) => {
+    if (isSubmitting) return;
 
     if (!pet) {
-      setError("Please select a pet before applying.");
+      setSubmitError("Please select a pet before applying.");
       return;
     }
 
     if (!onSubmit) {
-      setError("The application service is not configured.");
+      setSubmitError("The application service is not configured.");
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
+    setSubmitError("");
     setSuccess("");
 
     try {
       await onSubmit({
-        ...formData,
+        ...submittedValues,
         petId: pet.id,
         petName: pet.name,
       });
 
       setSuccess("Your adoption application was submitted successfully!");
-
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        address: "",
-        homeType: "",
-        household: "",
-        experience: "",
-        reason: "",
-      });
+      resetForm(INITIAL_VALUES);
     } catch (err) {
-      setError(
+      setSubmitError(
         err.message || "Something went wrong. Please try again."
       );
     } finally {
@@ -74,7 +84,9 @@ const handleSubmit = async (event) => {
     }
   };
 
-   const inputStyle =
+  const displayedError = submitError || errors.form || errors.email;
+
+  const inputStyle =
     "w-full rounded-lg border border-gray-300 bg-white px-4 py-3 outline-none transition focus:border-[#176965] focus:ring-2 focus:ring-[#176965]/20";
 
   const petImage = pet?.image || pet?.imageUrl || pet?.photo;
@@ -84,7 +96,7 @@ const handleSubmit = async (event) => {
       <div className="mx-auto max-w-5xl">
 
         {/* Back link */}
-                <Link
+        <Link
           to="/pets"
           className="mb-6 inline-flex items-center gap-3 text-[#176965] font-medium text-lg hover:text-[#FF6347] transition"
         >
@@ -155,9 +167,9 @@ const handleSubmit = async (event) => {
           </div>
         </div>
 
-{/* Adoption form */}
+        {/* Adoption form */}
         <form
-          onSubmit={handleSubmit}
+          onSubmit={handleSubmit(handleFormSubmit)}
           className="rounded-2xl bg-white p-6 shadow-lg md:p-10"
         >
           <h2 className="mb-2 text-2xl font-bold">
@@ -238,7 +250,7 @@ const handleSubmit = async (event) => {
 
           </div>
 
- {/* Home details */}
+          {/* Home details */}
           <h3 className="mb-5 mt-10 border-b border-gray-200 pb-3 text-lg font-semibold text-[#176965]">
             About Your Home
           </h3>
@@ -297,7 +309,7 @@ const handleSubmit = async (event) => {
 
           </div>
 
-           {/* Adoption reason */}
+          {/* Adoption reason */}
           <h3 className="mb-5 mt-10 border-b border-gray-200 pb-3 text-lg font-semibold text-[#176965]">
             Why Do You Want to Adopt?
           </h3>
@@ -319,19 +331,19 @@ const handleSubmit = async (event) => {
           </div>
 
           {/* Feedback */}
-          {error && (
-            <p className="mt-5 rounded-lg bg-red-50 p-3 text-red-700">
-              {error}
+          {displayedError && (
+            <p role="alert" className="mt-5 rounded-lg bg-red-50 p-3 text-red-700">
+              {displayedError}
             </p>
           )}
 
           {success && (
-            <p className="mt-5 rounded-lg bg-green-50 p-3 text-green-700">
+            <p role="status" className="mt-5 rounded-lg bg-green-50 p-3 text-green-700">
               {success}
             </p>
           )}
 
-           {/* Submit button */}
+          {/* Submit button */}
           <button
             type="submit"
             disabled={isSubmitting}
@@ -349,4 +361,5 @@ const handleSubmit = async (event) => {
     </div>
   );
 }
+
 export default AdoptionForm;
