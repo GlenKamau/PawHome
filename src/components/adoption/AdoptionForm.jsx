@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 function AdoptionForm({ pet, onSubmit }) {
     const [formData, setFormData] = useState({
@@ -80,6 +82,15 @@ const handleSubmit = async (event) => {
   return (
     <div className="min-h-screen bg-[#F4EEE8] px-4 py-12 text-[#1D2D2C]">
       <div className="mx-auto max-w-5xl">
+
+        {/* Back link */}
+                <Link
+          to="/pets"
+          className="mb-6 inline-flex items-center gap-3 text-[#176965] font-medium text-lg hover:text-[#FF6347] transition"
+        >
+          <ArrowLeft size={21} strokeWidth={1.8} />
+          <span>Back to Find a Pet</span>
+        </Link>
 
         {/* Page heading */}
         <div className="mb-10 text-center">
