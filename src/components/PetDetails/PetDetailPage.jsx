@@ -104,13 +104,30 @@ export default function PetDetailPage({
 
   const fav = favoriteIds.includes(pet.id);
 
-  const similar = allPets
-    .filter(
-      (other) =>
-        other.id !== pet.id &&
-        other.breed === pet.breed
-    )
-    .slice(0, 3);
+  const otherPets = allPets.filter(
+    (other) =>
+      String(other.id) !== String(pet.id) &&
+      other.status !== "adopted"
+  );
+  const sameBreed = otherPets.filter(
+    (other) =>
+      pet.breed &&
+      other.breed &&
+      other.breed.trim().toLowerCase() === pet.breed.trim().toLowerCase()
+  );
+  const sameSpecies = pet.species
+    ? otherPets.filter(
+        (other) =>
+          other.species?.toLowerCase() === pet.species.toLowerCase()
+      )
+    : [];
+  const hasSimilarMatches = sameBreed.length > 0 || sameSpecies.length > 0;
+  const similar = (sameBreed.length > 0
+    ? sameBreed
+    : sameSpecies.length > 0
+      ? sameSpecies
+      : otherPets
+  ).slice(0, 3);
 
   const isAvailable =
     (pet.status ?? "available") === "available";
@@ -275,7 +292,7 @@ export default function PetDetailPage({
         <section className="mt-16 border-t border-ivory-deep pt-10">
 
           <h2 className="text-2xl font-bold text-ink">
-            Similar pets
+            {hasSimilarMatches ? "Similar pets" : "More pets looking for a home"}
           </h2>
 
           <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
